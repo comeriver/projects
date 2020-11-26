@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DOCUMENT_ELEMENT table_name="extension" creation_time="1576590432" modified_time="1576590432" table_version="0.18" module_version="1.00" table_class="Ayoola_Extension" creation_ip="0">
+  <RECORDS autoId="2">
+    <TABLE_ROW ROW_ID="1">
+      <TABLE_FIELD FIELD_KEY="extension_name"><![CDATA[project_manager]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="status"><![CDATA[]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="settings"><![CDATA[null]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="components"><![CDATA[null]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="plugins"><![CDATA[null]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="templates"><![CDATA[null]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="article_url"><![CDATA[]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="extension_id"><![CDATA[1576590432-0-1]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="creation_time"><![CDATA[1576590432]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="__user_id"><![CDATA[1554892638.1731]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="__user_agent_id"><![CDATA[]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="__ip"><![CDATA[{&quot;REMOTE_ADDR&quot;:&quot;::1&quot;,&quot;HTTP_CLIENT_IP&quot;:&quot;&quot;,&quot;HTTP_X_FORWARDED_FOR&quot;:&quot;&quot;}]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="extension_title"><![CDATA[Project Manager]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="modules"><![CDATA[[&quot;\/ProjectManager.php&quot;,&quot;\/ProjectManager\/.DS_Store&quot;,&quot;\/ProjectManager\/Cost.php&quot;,&quot;\/ProjectManager\/Cost\/Abstract.php&quot;,&quot;\/ProjectManager\/Cost\/Creator.php&quot;,&quot;\/ProjectManager\/Cost\/Delete.php&quot;,&quot;\/ProjectManager\/Cost\/Editor.php&quot;,&quot;\/ProjectManager\/Cost\/List.php&quot;,&quot;\/ProjectManager\/Goals.php&quot;,&quot;\/ProjectManager\/Goals\/Abstract.php&quot;,&quot;\/ProjectManager\/Goals\/Creator.php&quot;,&quot;\/ProjectManager\/Goals\/Delete.php&quot;,&quot;\/ProjectManager\/Goals\/Editor.php&quot;,&quot;\/ProjectManager\/Goals\/List.php&quot;,&quot;\/ProjectManager\/InvoiceReminder.php&quot;,&quot;\/ProjectManager\/Payment.php&quot;,&quot;\/ProjectManager\/Payments.php&quot;,&quot;\/ProjectManager\/Payments\/Abstract.php&quot;,&quot;\/ProjectManager\/Payments\/Creator.php&quot;,&quot;\/ProjectManager\/Payments\/Delete.php&quot;,&quot;\/ProjectManager\/Payments\/Editor.php&quot;,&quot;\/ProjectManager\/Payments\/List.php&quot;,&quot;\/ProjectManager\/SendInvoice.php&quot;,&quot;\/ProjectManager\/Settings.php&quot;,&quot;\/ProjectManager\/TaskReminder.php&quot;,&quot;\/ProjectManager\/Tasks.php&quot;,&quot;\/ProjectManager\/Tasks\/Abstract.php&quot;,&quot;\/ProjectManager\/Tasks\/Creator.php&quot;,&quot;\/ProjectManager\/Tasks\/Delete.php&quot;,&quot;\/ProjectManager\/Tasks\/Editor.php&quot;,&quot;\/ProjectManager\/Tasks\/List.php&quot;,&quot;\/ProjectManager\/Timeline.php&quot;]]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="settings_class"><![CDATA[ProjectManager_Settings]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="databases"><![CDATA[[&quot;\/Ayoola\/Object\/dbase.xml&quot;,&quot;\/Ayoola\/Object\/pagewidget.xml&quot;,&quot;\/Ayoola\/Object\/widget.xml&quot;,&quot;\/Ayoola\/Page\/Menu\/option.xml&quot;,&quot;\/Ayoola\/Page\/page.xml&quot;,&quot;\/PageCarton\/Cron\/table.xml&quot;]]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="documents"><![CDATA[null]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="pages"><![CDATA[[&quot;\/make-project-payment&quot;,&quot;\/post-viewer-managed-project&quot;]]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="modified_time"><![CDATA[1577156082]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="__update_user_id"><![CDATA[[1554892638.173078]]]></TABLE_FIELD>
+    </TABLE_ROW>
+  </RECORDS>
+  <TABLE_SETTINGS>
+    <DATA_TYPES extension_name="INPUTTEXT, UNIQUE" extension_title="INPUTTEXT" status="INPUTTEXT" settings="JSON" settings_class="INPUTTEXT" components="JSON" modules="JSON" databases="JSON" documents="JSON" plugins="JSON" pages="JSON" templates="JSON" article_url="INPUTTEXT" extension_id="INPUTTEXT" creation_time="INPUTTEXT" modified_time="INPUTTEXT" __user_id="INPUTTEXT" __update_user_id="JSON" __user_agent_id="INPUTTEXT" __ip="JSON"/>
+    <FOREIGN_KEYS/>
+    <RELATIVES/>
+  </TABLE_SETTINGS>
+</DOCUMENT_ELEMENT>
