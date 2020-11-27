@@ -55,8 +55,8 @@ class ProjectManager_Goals_List extends ProjectManager_Goals_Abstract
 		$list->setListOptions( 
 								array( 
 										'Import' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Duplicate?article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );" title="">Import Goal to Project</a>' : null,    
-										'Creator' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Creator?article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );" title="">New Goal</a>' : null,    
-										'Timeline' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Timeline?article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );" title="">Timeline</a>' : null,    
+										'Creator' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Creator?article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );" title="">Create a New Goal</a>' : null,    
+										'Timeline' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Timeline?article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );" title="">Goal Timeline</a>' : null,    
 									) 
 							);
 		$list->setKey( $this->getIdColumn() );

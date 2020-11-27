@@ -90,7 +90,7 @@ class ProjectManager_Goals_Duplicate extends ProjectManager_Goals_Creator
         $options = ProjectManager_Goals_Abstract::getGoals();
 
 
-        $fieldset->addElement( array( 'name' => 'preset', 'label' => 'Duplicate Exist Project Goal', 'type' => 'Select', 'value' => @$values['preset'] ), $options );
+        $fieldset->addElement( array( 'name' => 'preset', 'label' => 'Duplicate Existing Project Goal', 'type' => 'Select', 'value' => @$values['preset'] ), $options );
 		if( empty( $_GET['article_url'] ) )
 		{
 			$fieldset->addElement( array( 'name' => 'article_url', 'type' => 'InputText', 'value' => @$values['article_url'] ) ); 
