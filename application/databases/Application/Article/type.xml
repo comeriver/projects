@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DOCUMENT_ELEMENT table_name="type" creation_time="1576486882" modified_time="1576486882" table_version="0.10" module_version="1.00" table_class="Application_Article_Type" creation_ip="0">
   <RECORDS autoId="3">
-    <TABLE_ROW ROW_ID="1">
     <TABLE_ROW ROW_ID="2">
       <TABLE_FIELD FIELD_KEY="post_type"><![CDATA[Managed Project]]></TABLE_FIELD>
       <TABLE_FIELD FIELD_KEY="article_type"><![CDATA[article]]></TABLE_FIELD>
