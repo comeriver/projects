@@ -65,7 +65,7 @@ class ProjectManager_Goals_Abstract extends PageCarton_Widget
             $projectInfo = Application_Article_Abstract::loadPostData( $goal['article_url'] );
             if( empty( $projectInfo['article_title'] ) )
             {
-             //   continue;
+                continue;
             }
             $options[$goal['goals_id']] = $goal['goal'] . ' (' . $projectInfo['article_title']  . ')';
         }
