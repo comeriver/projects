@@ -80,8 +80,6 @@ class ProjectManager_Payments_List extends ProjectManager_Payments_Abstract
 		(
 			array(
                     'amount' => array( 'field' => 'amount', 'value' =>  '' . Application_Settings_Abstract::getSettings( 'Payments', 'default_currency' ) . '%FIELD%', 'filter' =>  '' ), 
-           //         'username' => array( 'field' => 'username', 'value' =>  '%FIELD%', 'filter' =>  '' ), 
-         //           'user_id' => array( 'field' => 'user_id', 'value' =>  '%FIELD%', 'filter' =>  '' ), 
                     'Added' => array( 'field' => 'creation_time', 'value' =>  '%FIELD%', 'filter' =>  'Ayoola_Filter_Time' ), 
                     '' => '%FIELD% <a style="font-size:smaller;" href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Payments_Editor/?' . $this->getIdColumn() . '=%KEY%\', \'' . $this->getObjectName() . '\' );"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>', 
                     ' ' => '%FIELD% <a style="font-size:smaller;" href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Payments_Delete/?' . $this->getIdColumn() . '=%KEY%\', \'' . $this->getObjectName() . '\' );"><i class="fa fa-trash" aria-hidden="true"></i></a>', 
