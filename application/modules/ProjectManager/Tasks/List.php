@@ -24,7 +24,7 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
      * 
      * @var string 
      */
-	  protected static $_objectTitle = 'Goal Tasks';   
+	  protected static $_objectTitle = 'Tasks';   
 
     /**
      * Performs the creation process
@@ -62,19 +62,33 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
         {
             $this->_dbWhereClause['email_address'] = strtolower( Ayoola_Application::getUserInfo( 'email' ) );
         }
+
+        if( empty( $_GET['all_tasks'] ) )
+        {
+            $this->_dbWhereClause['completion_time'] = '';
+        }
 		require_once 'Ayoola/Paginator.php';
         $list = new Ayoola_Paginator();
         $this->_sortColumn = 'time';
 		$list->pageName = $this->getObjectName();
-		$list->listTitle = self::getObjectTitle();
+        $list->listTitle = self::getObjectTitle();
+        if( $goalInfo  )
+        {
+            $list->listTitle = 'Tasks for "' . $goalInfo['goal'] . '"';
+        }
+        if( $goalInfo &&  $postData )
+        {
+            $list->listTitle = 'Tasks for "' . $goalInfo['goal'] . '" on "' . $postData['article_title'] . '"';
+        }
 		$list->setData( $this->getDbData() );
 		$list->setListOptions( 
 								array( 
-										'Creator' => $_GET['goals_id'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_Creator?goals_id=' . @$_GET['goals_id'] . '\', \'' . $this->getObjectName() . '\' );" title="">New Task</a>' : null,    
+										'Creator' => '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_Creator?goals_id=' . @$_GET['goals_id'] . '\', \'' . $this->getObjectName() . '\' );" title="">Add New Task</a>',    
+										'<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_List?all_tasks=1\', \'' . $this->getObjectName() . '\' );" title="">All Tasks</a>',    
 									) 
 							);
 		$list->setKey( $this->getIdColumn() );
-		$list->setNoRecordMessage( 'No tasks added yet.' );
+		$list->setNoRecordMessage( 'No pending tasks to show. Add a task...' );
 		
 		$list->createList
 		(

@@ -66,7 +66,7 @@ class ProjectManager_Payments_List extends ProjectManager_Payments_Abstract
 		}
 		$list->pageName = $this->getObjectName();
 		$list->listTitle = 'Total Payments: ' . $total . '/' . $totalCost;
-;
+
 		$list->setData( $this->getDbData() );
 		$list->setListOptions( 
 								array( 

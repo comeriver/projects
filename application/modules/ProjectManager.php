@@ -108,6 +108,7 @@ class ProjectManager extends PageCarton_Widget
 											'Creator' => '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/Application_Article_Creator?article_type=' . $postType . '&post_type_custom_fields=customer_email&true_post_type=article\', \'' . $this->getObjectName() . '\' );" title="">New Project</a>',    
 											'Payments' => '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Payments_List\', \'' . $this->getObjectName() . '\' );" title="">Payments</a>',    
 											'<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Timeline\', \'' . $this->getObjectName() . '\' );" title="">Timeline</a>',    
+											'<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_List\', \'' . $this->getObjectName() . '\' );" title="">Tasks</a>',    
 										) 
 								);
 			$list->setKey( $class->getIdColumn() );
@@ -128,8 +129,6 @@ class ProjectManager extends PageCarton_Widget
 			);
 			
 			$this->setViewContent( $list->view() );
-		//	$data = $class->getDbData();
-
              // end of widget process
           
 		}  
