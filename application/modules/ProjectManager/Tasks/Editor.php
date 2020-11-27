@@ -32,12 +32,12 @@ class ProjectManager_Tasks_Editor extends ProjectManager_Tasks_Abstract
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $data['goals_id'] ) ) )
             {
                 $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
-                return false;
+             //   return false;
             }
             if( ! $postData = Application_Article_Abstract::loadPostData( $goalInfo['article_url']  ) )
             {
                 $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
-                return false;
+            //    return false;
             }
             if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) )
             {

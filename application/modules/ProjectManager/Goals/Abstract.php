@@ -50,6 +50,32 @@ class ProjectManager_Goals_Abstract extends PageCarton_Widget
 
 
     /**
+     * 
+     */
+	public static function getGoals()  
+    {
+        $options = array();
+        $goals = ProjectManager_Goals::getInstance()->select();
+        foreach( $goals as $goal )
+        {
+            if( empty( $goal['article_url'] ) )
+            {
+                continue;
+            }
+            $projectInfo = Application_Article_Abstract::loadPostData( $goal['article_url'] );
+            if( empty( $projectInfo['article_title'] ) )
+            {
+             //   continue;
+            }
+            $options[$goal['goals_id']] = $goal['goal'] . ' (' . $projectInfo['article_title']  . ')';
+        }
+        asort( $options );
+        $options = array( '' => 'Please Select...' ) + $options;
+
+        return $options;
+    }
+
+    /**
      * creates the form for creating and editing page
      * 
      * param string The Value of the Submit Button

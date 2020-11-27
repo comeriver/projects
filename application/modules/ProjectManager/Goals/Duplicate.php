@@ -86,24 +86,8 @@ class ProjectManager_Goals_Duplicate extends ProjectManager_Goals_Creator
 
 		$fieldset = new Ayoola_Form_Element;
 
-        $options = array();
+        $options = ProjectManager_Goals_Abstract::getGoals();
 
-        $goals = ProjectManager_Goals::getInstance()->select();
-        foreach( $goals as $goal )
-        {
-            if( empty( $goal['article_url'] ) )
-            {
-                continue;
-            }
-            $projectInfo = Application_Article_Abstract::loadPostData( $goal['article_url'] );
-            if( empty( $projectInfo['article_title'] ) )
-            {
-                continue;
-            }
-            $options[$goal['goals_id']] = $goal['goal'] . ' (' . $projectInfo['article_title']  . ')';
-        }
-        asort( $options );
-        $options = array( '' => 'Please Select...' ) + $options;
 
         $fieldset->addElement( array( 'name' => 'preset', 'label' => 'Duplicate Exist Project Goal', 'type' => 'Select', 'value' => @$values['preset'] ), $options );
 		if( empty( $_GET['article_url'] ) )

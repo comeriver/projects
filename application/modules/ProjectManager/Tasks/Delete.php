@@ -31,24 +31,27 @@ class ProjectManager_Tasks_Delete extends ProjectManager_Tasks_Abstract
 			if( ! $data = $this->getIdentifierData() ){ return false; }
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $data['goals_id'] ) ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
-                return false;
+                $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . ''  );
+            //    return false;
             }
             if( ! $postData = Application_Article_Abstract::loadPostData( $goalInfo['article_url']  ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
-                return false;
+                $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . ''  );
+            //    return false;
             }
             if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">You do not have enough privileges to do this</div>' ) . '', true  );
+                $this->setViewContent(  '' . self::__( '<div class="badnews">You do not have enough privileges to do this</div>' ) . ''  );
                 return false;
             }
 			$this->createConfirmationForm( 'Delete Now', 'Delete Task' );
-			$this->setViewContent( $this->getForm()->view(), true );
+			$this->setViewContent( $this->getForm()->view() );
 			if( ! $values = $this->getForm()->getValues() ){ return false; }
             
-            if( $this->deleteDb() ){ $this->setViewContent(  '' . self::__( '<div class="goodnews">Data deleted successfully</div>' ) . '', true  ); } 
+            if( ! $this->deleteDb() )
+            { 
+                return false;
+            } 
             if( $taskEmails = trim( implode( ',', $data['email_address'] ), ', ' ) )
             {
                 $postData['customer_email'] .= ',' . $taskEmails;

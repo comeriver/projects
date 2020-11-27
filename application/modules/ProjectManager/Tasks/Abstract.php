@@ -90,7 +90,15 @@ class ProjectManager_Tasks_Abstract extends PageCarton_Widget
                 $fieldset->addFilter( 'email_address', array( 'LowerCase' ) );
                 if( empty( $_GET['goals_id'] ) )
                 {
-                    $fieldset->addElement( array( 'name' => 'goals_id', 'type' => 'InputText', 'value' => @$values['goals_id'] ) ); 
+                    if( $values['goals_id'] && ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $values['goals_id'] ) ) )
+                    {
+                        $fieldset->addElement( array( 'name' => 'goals_id', 'type' => 'Hidden', 'value' => @$values['goals_id'] ) ); 
+                    }
+                    else
+                    {
+                        $options = ProjectManager_Goals_Abstract::getGoals();
+                        $fieldset->addElement( array( 'name' => 'goals_id', 'label' => 'Task Goal', 'type' => 'Select', 'value' => @$values['goals_id'] ), $options );
+                    }
                 }
             break;
         }

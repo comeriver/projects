@@ -48,12 +48,12 @@ class ProjectManager_Tasks_Creator extends ProjectManager_Tasks_Abstract
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $values['goals_id'] ) ) )
             {
                 $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
-                return false;
+            //    return false;
             }
             if( ! $postData = Application_Article_Abstract::loadPostData( $goalInfo['article_url']  ) )
             {
                 $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
-                return false;
+            //    return false;
             }
             if( $taskEmails = trim( implode( ',', $values['email_address'] ), ', ' ) )
             {
