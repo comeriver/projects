@@ -84,7 +84,7 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
 		$list->setListOptions( 
 								array( 
 										'Creator' => '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_Creator?goals_id=' . @$_GET['goals_id'] . '\', \'' . $this->getObjectName() . '\' );" title="">Add New Task</a>',    
-										'<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_List?all_tasks=1\', \'' . $this->getObjectName() . '\' );" title="">All Tasks</a>',    
+										'<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_List?all_tasks=1&goals_id=' . @$_GET['goals_id'] . '\', \'' . $this->getObjectName() . '\' );" title="">All Tasks</a>',    
 									) 
 							);
 		$list->setKey( $this->getIdColumn() );
