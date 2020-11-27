@@ -51,7 +51,8 @@ class ProjectManager_Goals_Duplicate extends ProjectManager_Goals_Creator
                     $taskInfo = $task;
                     unset( $taskInfo['tasks_id'] );
                     $taskInfo['goals_id'] = $goalId['goals_id'];
-                    $taskInfo['time'] = time();
+                    $taskInfo['time'] = time(); 
+                    $taskInfo['completion_time'] = ''; 
                     //    var_export( $taskInfo );
                     $class = new ProjectManager_Tasks_Creator( array( 'fake_values' => $taskInfo ) );
                     $class->initOnce();
