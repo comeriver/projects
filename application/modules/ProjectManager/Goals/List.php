@@ -24,7 +24,7 @@ class ProjectManager_Goals_List extends ProjectManager_Goals_Abstract
      * 
      * @var string 
      */
-	  protected static $_objectTitle = 'Project Goals';   
+	  protected static $_objectTitle = 'Goals';   
 
     /**
      * Performs the creation process
@@ -46,21 +46,49 @@ class ProjectManager_Goals_List extends ProjectManager_Goals_Abstract
 		if( ! empty( $_GET['article_url'] ) )
 		{
 			$this->_dbWhereClause['article_url'] = $_GET['article_url'];
+            if( $postData = Application_Article_Abstract::loadPostData( $_GET['article_url'] ) )
+            {    
+                //  $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
+                //  return false;
+                $project = $postData['article_title'];
+            }
 		}
+        elseif(  $this->getParameter( 'project_name' ) )
+        {
+			$this->_dbWhereClause['article_url'] = $this->getParameter( 'project_name' );
+            $project = $this->getParameter( 'project_name' );
+        }
+        else
+        {
+            $project = "Untitled Project";
+        }
 		require_once 'Ayoola/Paginator.php';
 		$list = new Ayoola_Paginator();
 		$list->pageName = $this->getObjectName();
 		$list->listTitle = self::getObjectTitle();
+		$list->hideCheckbox = true;
+		$list->noHeader = true;
 		$list->setData( $this->getDbData() );
-		$list->setListOptions( 
-								array( 
-										'Import' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Duplicate?article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );" title="">Import Goal to Project</a>' : null,    
-										'Creator' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Creator?article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );" title="">Create a New Goal</a>' : null,    
-										'Timeline' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Timeline?article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );" title="">Goal Timeline</a>' : null,    
-									) 
-							);
+        if( ! $this->getParameter( 'no_list_options' ) )
+        {
+            $list->setListOptions( 
+                array( 
+                        'Import' => $project ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Duplicate?article_url=' . $project . '\', \'' . $this->getObjectName() . '\' );" title="">Import Goal to Project</a>' : null,    
+                        'Creator' => $project ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Creator?article_url=' . $project . '\', \'' . $this->getObjectName() . '\' );" title="">Create a New Goal</a>' : null,    
+                        'Timeline' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Timeline?article_url=' . $project . '\', \'' . $this->getObjectName() . '\' );" title="">Goal Timeline</a>' : null,    
+                    ) 
+            );
+        }
+        else
+        {
+            $list->setListOptions( 
+                array( 
+                        'Creator' => '',    
+                    ) 
+            );
+        }
 		$list->setKey( $this->getIdColumn() );
-		$list->setNoRecordMessage( 'No data added to this table yet.' );
+		$list->setNoRecordMessage( 'No goals set yet...' );
 		
 		$list->createList
 		(

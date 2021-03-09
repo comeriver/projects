@@ -70,10 +70,8 @@ class ProjectManager_Tasks_Abstract extends PageCarton_Widget
 		//	Form to create a new page
         $form = new Ayoola_Form( array( 'name' => $this->getObjectName(), 'data-not-playable' => true ) );
 		$form->submitValue = $submitValue ;
-//		$form->oneFieldSetAtATime = true;
 
 		$fieldset = new Ayoola_Form_Element;
-    //	$fieldset->placeholderInPlaceOfLabel = false;   
         switch( @$_GET['task_edit_mode'] )    
         {
             case 'completion':
@@ -86,7 +84,7 @@ class ProjectManager_Tasks_Abstract extends PageCarton_Widget
                 $fieldset->addElement( array( 'name' => 'duration', 'label' => 'Duration', 'type' => 'Select', 'value' => @$values['duration'] ), array_combine( range( 1, 30 ), range( 1, 30 ) ) ); 
                 $fieldset->addElement( array( 'name' => 'duration_time', 'label' => '', 'type' => 'Select', 'value' => @$values['duration_time'] ? : 86400 ), array_flip( self::$_timeTable ) ); 
                 $fieldset->addElement( array( 'name' => 'completion_time', 'label' => '', 'type' => 'Hidden', 'value' => null ) ); 
-                $fieldset->addElement( array( 'name' => 'email_address', 'label' => 'Contact Emails', 'placeholder' => 'example@mail.com', 'type' => 'MultipleInputText', 'value' => @$values['email_address'] ) ); 
+                $fieldset->addElement( array( 'name' => 'email_address', 'label' => 'Team Members Emails', 'placeholder' => 'example@mail.com', 'type' => 'MultipleInputText', 'value' => @$values['email_address'] ) ); 
                 $fieldset->addFilter( 'email_address', array( 'LowerCase' ) );
                 if( empty( $_GET['goals_id'] ) )
                 {
@@ -96,7 +94,13 @@ class ProjectManager_Tasks_Abstract extends PageCarton_Widget
                     }
                     else
                     {
-                        $options = ProjectManager_Goals_Abstract::getGoals();
+                        $where = array();
+                        if( ! empty( $_GET['article_url'] ) )
+                        {
+                            $where['article_url'] = $_GET['article_url'];
+                        }
+                        $options = ProjectManager_Goals_Abstract::getGoals( $where );
+                        
                         $fieldset->addElement( array( 'name' => 'goals_id', 'label' => 'Task Goal', 'type' => 'Select', 'value' => @$values['goals_id'] ), $options );
                     }
                 }

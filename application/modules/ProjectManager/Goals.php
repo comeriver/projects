@@ -36,7 +36,6 @@ class ProjectManager_Goals extends PageCarton_Table
 	protected $_dataTypes = array (
         'goal' => 'INPUTTEXT',
         'username' => 'INPUTTEXT',
-    //    'time' => 'INPUTTEXT',
         'completion_time' => 'INPUTTEXT',
         'user_id' => 'INPUTTEXT',
         'article_url' => 'INPUTTEXT',

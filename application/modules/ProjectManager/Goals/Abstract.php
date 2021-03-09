@@ -52,10 +52,10 @@ class ProjectManager_Goals_Abstract extends PageCarton_Widget
     /**
      * 
      */
-	public static function getGoals()  
+	public static function getGoals( array $where = null )  
     {
         $options = array();
-        $goals = ProjectManager_Goals::getInstance()->select();
+        $goals = ProjectManager_Goals::getInstance()->select( null, $where );
         foreach( $goals as $goal )
         {
             if( empty( $goal['article_url'] ) )
@@ -63,14 +63,14 @@ class ProjectManager_Goals_Abstract extends PageCarton_Widget
                 continue;
             }
             $projectInfo = Application_Article_Abstract::loadPostData( $goal['article_url'] );
-            if( empty( $projectInfo['article_title'] ) )
+            if( ! empty( $projectInfo['article_title'] ) )
             {
-                continue;
+                $goal['goal'] = $goal['goal'] . ' (' . $projectInfo['article_title']  . ')';
             }
-            $options[$goal['goals_id']] = $goal['goal'] . ' (' . $projectInfo['article_title']  . ')';
+            $options[$goal['goals_id']] = $goal['goal'];
         }
         asort( $options );
-        $options = array( '' => 'Please Select...' ) + $options;
+        //      $options = array( '' => 'Please Select...' ) + $options;
 
         return $options;
     }
@@ -87,13 +87,11 @@ class ProjectManager_Goals_Abstract extends PageCarton_Widget
 		//	Form to create a new page
         $form = new Ayoola_Form( array( 'name' => $this->getObjectName(), 'data-not-playable' => true ) );
 		$form->submitValue = $submitValue ;
-//		$form->oneFieldSetAtATime = true;
 
 		$fieldset = new Ayoola_Form_Element;
-	//	$fieldset->placeholderInPlaceOfLabel = false;       
-        $fieldset->addElement( array( 'name' => 'goal', 'label' => 'Project Goal', 'placeholder' => 'Enter a goal...', 'type' => 'InputText', 'value' => @$values['goal'] ) ); 
+        $fieldset->addElement( array( 'name' => 'goal', 'label' => 'Set a Goal', 'placeholder' => 'Enter a goal...', 'type' => 'InputText', 'value' => @$values['goal'] ) ); 
 
-		if( empty( $_GET['article_url'] ) )
+		if( empty( $_GET['article_url'] ) && ! $this->getParameter( 'ignore_article_url' ) && ! @$values['article_url'] )
 		{
 			$fieldset->addElement( array( 'name' => 'article_url', 'type' => 'InputText', 'value' => @$values['article_url'] ) ); 
 		}

@@ -24,7 +24,7 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
      * 
      * @var string 
      */
-	  protected static $_objectTitle = 'Tasks';   
+	  protected static $_objectTitle = 'To do';   
 
     /**
      * Performs the creation process
@@ -48,13 +48,13 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
 			$this->_dbWhereClause['goals_id'] = $_GET['goals_id'];
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $_GET['goals_id'] ) ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
-                return false;
+                //$this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
+                //return false;
             }
             if( ! $postData = Application_Article_Abstract::loadPostData( $goalInfo['article_url']  ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
-                return false;
+                //$this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
+                //return false;
             }
         }
 
@@ -80,15 +80,30 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
         {
             $list->listTitle = 'Tasks for "' . $goalInfo['goal'] . '" on "' . $postData['article_title'] . '"';
         }
+        $list->hideCheckbox = true;
+		$list->noHeader = true;
+
 		$list->setData( $this->getDbData() );
-		$list->setListOptions( 
-								array( 
-										'Creator' => '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_Creator?goals_id=' . @$_GET['goals_id'] . '\', \'' . $this->getObjectName() . '\' );" title="">Add New Task</a>',    
-										'<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_List?all_tasks=1&goals_id=' . @$_GET['goals_id'] . '\', \'' . $this->getObjectName() . '\' );" title="">All Tasks</a>',    
-									) 
-							);
+        if( ! $this->getParameter( 'no_list_options' ) )
+        {
+            $list->setListOptions( 
+                array( 
+                        'Creator' => '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_Creator?goals_id=' . @$_GET['goals_id'] . '\', \'' . $this->getObjectName() . '\' );" title="">Add New Task</a>',    
+                        '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_List?all_tasks=1&goals_id=' . @$_GET['goals_id'] . '\', \'' . $this->getObjectName() . '\' );" title="">All Tasks</a>',    
+                    ) 
+            );
+
+        }
+        else
+        {
+            $list->setListOptions( 
+                array( 
+                        'Creator' => '',    
+                    ) 
+            );
+        }
 		$list->setKey( $this->getIdColumn() );
-		$list->setNoRecordMessage( 'No pending tasks to show. Add a task...' );
+		$list->setNoRecordMessage( 'No pending tasks to show...' );
 		
 		$list->createList
 		(

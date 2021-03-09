@@ -26,19 +26,19 @@ class ProjectManager_Goals_Duplicate extends ProjectManager_Goals_Creator
      */
 	public function init()
     {
-        try {
+        try
+        {
             //  Code that runs the widget goes here...
             $this->createForm('Submit...', 'Duplicate a project goal');
             $this->setViewContent($this->getForm()->view());
 
-            //	self::v( $_POST );
             if (! $values = $this->getForm()->getValues()) {
                 return false;
             }
 
             $goal = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $values['preset'] ) );   
-            $tasks = ProjectManager_Tasks::getInstance()->select( null, array( 'goals_id' => $values['preset'] ) );   
-            //    var_export( $tasks );
+            $tasks = ProjectManager_Tasks::getInstance()->select( null, array( 'goals_id' => $values['preset'] ) );    
+
             $goalInfo = $goal;
             unset( $goalInfo['goals_id'] );
             $class = new ProjectManager_Goals_Creator( array( 'fake_values' => $goalInfo ) );
@@ -53,18 +53,15 @@ class ProjectManager_Goals_Duplicate extends ProjectManager_Goals_Creator
                     $taskInfo['goals_id'] = $goalId['goals_id'];
                     $taskInfo['time'] = time(); 
                     $taskInfo['completion_time'] = ''; 
-                    //    var_export( $taskInfo );
                     $class = new ProjectManager_Tasks_Creator( array( 'fake_values' => $taskInfo ) );
                     $class->initOnce();
-                    //    var_export( $class->getForm()->getValues() );
-                    //    var_export( $class->getForm()->getBadnews() );
-                    $this->setViewContent( $class->view()  ); 
-
+                    $this->setViewContent( $class->view() );
                 }
             }
-
             // end of widget process
-        } catch (Exception $e) {
+        } 
+        catch (Exception $e) 
+        {
             //  Alert! Clear the all other content and display whats below.
             $this->setViewContent(self::__('<p class="badnews">' . $e->getMessage() . '</p>'));
             $this->setViewContent(self::__('<p class="badnews">Theres an error in the code</p>'));

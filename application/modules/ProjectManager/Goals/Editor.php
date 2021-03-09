@@ -31,13 +31,13 @@ class ProjectManager_Goals_Editor extends ProjectManager_Goals_Abstract
 			if( ! $data = $this->getIdentifierData() ){ return false; }
             if( ! $postData = Application_Article_Abstract::loadPostData( $data['article_url']  ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
-                return false;
+                //$this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
+                //return false;
             }
             if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">You do not have enough privileges to do this</div>' ) . '', true  );
-                return false;
+                //$this->setViewContent(  '' . self::__( '<div class="badnews">You do not have enough privileges to do this</div>' ) . '', true  );
+                //return false;
             }
 			$this->createForm( 'Save', 'Edit', $data );
 			$this->setViewContent( $this->getForm()->view(), true );
@@ -50,16 +50,19 @@ class ProjectManager_Goals_Editor extends ProjectManager_Goals_Abstract
             } 
             if( ! $postData = Application_Article_Abstract::loadPostData( $data['article_url']  ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
-                return false;
+                $project = $data['article_url'];
+            }
+            else
+            {
+                $project = $postData['article_title'];
             }
         //    var_export( $data );
             $subject = '' . sprintf( self::__( 'Goal "%s" updated' ), $data['goal'] );
-            $body = '' . sprintf( self::__( 'Goal "%s" has been updated on "%s" project' ), $data['goal'], $postData['article_title'] ) . '';
+            $body = '' . sprintf( self::__( 'Goal "%s" has been updated on "%s" project' ), $data['goal'], $project ) . '';
             $this->setViewContent(  '<div class="goodnews">' . $subject . '</div>', true  ); 
 
             $mailInfo = array();
-            $mailInfo['to'] = $postData['customer_email'];
+            $mailInfo['to'] = $postData['customer_email'] . ',' . Ayoola_Application::getUserInfo( 'email' );;
             $mailInfo['body'] = $message . ProjectManager::getEmailFooter();
             $mailInfo['subject'] = $body;
             self::sendMail( $mailInfo );

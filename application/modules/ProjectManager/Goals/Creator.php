@@ -33,32 +33,34 @@ class ProjectManager_Goals_Creator extends ProjectManager_Goals_Abstract
 	public function init()
     {    
 		try
-		{ 
+		{
             //  Code that runs the widget goes here...
 			$this->createForm( 'Submit...', 'Add new' );
 			$this->setViewContent( $this->getForm()->view() );
 
-		//	self::v( $_POST );
 			if( ! $values = $this->getForm()->getValues() ){ return false; }
 			$values['article_url'] = $_GET['article_url'];
+			$values['username'] = Ayoola_Application::getUserInfo( 'username' );
 			
-		//	if( ! $this->insertDb() ){ return false; }
 			if( $this->insertInfo = $this->insertDb( $values ) )
 			{ 
 				$this->setViewContent(  '' . self::__( '<div class="goodnews">Goal added successfully. </div>' ) . '', true  ); 
 			}
             if( ! $postData = Application_Article_Abstract::loadPostData( $values['article_url']  ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
-                return false;
+                $project = $data['article_url'];
+            }
+            else
+            {
+                $project = $postData['article_title'];
             }
           
             $subject = '' . sprintf( self::__( 'New goal "%s" added' ), $values['goal'] );
-            $body = '' . sprintf( self::__( 'Goal "%s" has been added on "%s" project' ), $values['goal'], $postData['article_title'] ) . '';
+            $body = '' . sprintf( self::__( 'Goal "%s" has been added on "%s" project' ), $values['goal'], $project ) . '';
             $this->setViewContent(  '<div class="goodnews">' . $subject . '</div>', true  ); 
 
             $mailInfo = array();
-            $mailInfo['to'] = $postData['customer_email'];
+            $mailInfo['to'] = $postData['customer_email'] . ',' . Ayoola_Application::getUserInfo( 'email' );;
             $mailInfo['body'] = $body . ProjectManager::getEmailFooter();
             $mailInfo['subject'] = $subject;
             self::sendMail( $mailInfo );

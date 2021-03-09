@@ -69,9 +69,6 @@ class ProjectManager_Cost_List extends ProjectManager_Cost_Abstract
 			array(
                     'item_name' => array( 'field' => 'item_name', 'value' =>  '%FIELD%', 'filter' =>  '' ), 
                     'price' => array( 'field' => 'price', 'value' =>  '' . Application_Settings_Abstract::getSettings( 'Payments', 'default_currency' ) . '%FIELD%', 'filter' =>  '' ), 
-                //    'username' => array( 'field' => 'username', 'value' =>  '%FIELD%', 'filter' =>  '' ), 
-              //      'user_id' => array( 'field' => 'user_id', 'value' =>  '%FIELD%', 'filter' =>  '' ), 
-            //        'article_url' => array( 'field' => 'article_url', 'value' =>  '%FIELD%', 'filter' =>  '' ), 
                     'Added' => array( 'field' => 'creation_time', 'value' =>  '%FIELD%', 'filter' =>  'Ayoola_Filter_Time' ), 
                     '' => '%FIELD% <a style="font-size:smaller;" href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Cost_Editor/?' . $this->getIdColumn() . '=%KEY%&article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>', 
                     ' ' => '%FIELD% <a style="font-size:smaller;" href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Cost_Delete/?' . $this->getIdColumn() . '=%KEY%&article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );"><i class="fa fa-trash" aria-hidden="true"></i></a>', 
