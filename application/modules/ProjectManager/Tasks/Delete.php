@@ -38,7 +38,7 @@ class ProjectManager_Tasks_Delete extends ProjectManager_Tasks_Abstract
                 //$this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . ''  );
             //    return false;
             }
-            if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) )
+            if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) && ! in_array( strtolower( Ayoola_Application::getUserInfo( 'email') ), array_map( 'strtolower', $data['email_address'] ) ) )
             {
                 $this->setViewContent(  '' . self::__( '<div class="badnews">You do not have enough privileges to do this</div>' ) . ''  );
                 return false;
