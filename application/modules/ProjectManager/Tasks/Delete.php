@@ -32,7 +32,6 @@ class ProjectManager_Tasks_Delete extends ProjectManager_Tasks_Abstract
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $data['goals_id'] ) ) )
             {
                 //  $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . ''  );
-            //    return false;
             }
             if( ! $postData = Application_Article_Abstract::loadPostData( $goalInfo['article_url']  ) )
             {
@@ -56,9 +55,11 @@ class ProjectManager_Tasks_Delete extends ProjectManager_Tasks_Abstract
             {
                 $postData['customer_email'] .= ',' . $taskEmails;
             }
-           
-            $subject = '' . sprintf( self::__( 'Task "%s" deleted on "%s" goal' ), $data['task'], $goalInfo['goal'] ) . '';
-            $body = '' . sprintf( self::__( 'Task "%s" deleted on "%s" goal on "%s" project' ), $data['task'], $goalInfo['goal'], $postData['article_title'] ) . '';
+            $goal = $goalInfo['goal'] ? : 'Untitled Goal';
+            $project = $postData['article_title'] ? : 'Untitled Project';
+
+            $subject = '' . sprintf( self::__( 'Task "%s" deleted on "%s" goal' ), $data['task'], $goal ) . '';
+            $body = '' . sprintf( self::__( 'Task "%s" deleted on "%s" goal on "%s" project' ), $data['task'], $goal, $project ) . '';
             $this->setViewContent(  '<div class="goodnews">' . $subject . '</div>', true  ); 
 
             $mailInfo = array();

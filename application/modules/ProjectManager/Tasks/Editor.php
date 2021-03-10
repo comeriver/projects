@@ -31,26 +31,23 @@ class ProjectManager_Tasks_Editor extends ProjectManager_Tasks_Abstract
 			if( ! $data = $this->getIdentifierData() ){ return false; }
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $data['goals_id'] ) ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
-             //   return false;
+               // $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
+                //   return false;
             }
             if( ! $postData = Application_Article_Abstract::loadPostData( $goalInfo['article_url']  ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
-            //    return false;
+                //$this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
+                //    return false;
             }
-            if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) )
+            if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) && ! in_array( strtolower( Ayoola_Application::getUserInfo( 'email') ), array_map( 'strtolower', $data['email_address'] ) ) )
             {
                 $this->setViewContent(  '' . self::__( '<div class="badnews">You do not have enough privileges to do this</div>' ) . '', true  );
                 return false;
             }
 			$this->createForm( 'Save', 'Edit task', $data );
 			$this->setViewContent( $this->getForm()->view(), true );
-        //    var_export( $data );
 			if( ! $values = $this->getForm()->getValues() ){ return false; }
-			
-        //    var_export( $goalInfo );
-            
+			            
             if( $taskEmails = trim( implode( ',', @$values['email_address'] ? : $data['email_address'] ), ', ' ) )
             {
                 $postData['customer_email'] .= ',' . $taskEmails;
@@ -62,10 +59,12 @@ class ProjectManager_Tasks_Editor extends ProjectManager_Tasks_Abstract
                 $this->setViewContent( '<div class="badnews">' . sprintf( self::__( 'Task "%s" could not be saved.' ), $data['task'] ) . '</div>', true  ); 
                 return false;
             }
-            
+            $goal = $goalInfo['goal'] ? : 'Untitled Goal';
+            $project = $postData['article_title'] ? : 'Untitled Project';
+
             if( empty( $values['completion_time'] ) && ! empty( $goalInfo['completion_time'] )  )
             {
-                $message = '' . sprintf( self::__( 'Task information for "%s" has been updated. Goal "%s" is no longer set as completed.' ), $data['task'], $goalInfo['goal'] ) . '';
+                $message = '' . sprintf( self::__( 'Task information for "%s" has been updated. Goal "%s" is no longer set as completed.' ), $data['task'], $goal ) . '';
                 $this->setViewContent(  '<div class="goodnews">' . $message . '</div>', true  ); 
                 ProjectManager_Goals::getInstance()->update( array( 'completion_time' => null ), array( 'goals_id' => $data['goals_id'] ) );  
 
@@ -92,7 +91,6 @@ class ProjectManager_Tasks_Editor extends ProjectManager_Tasks_Abstract
                 if(  empty( $goalInfo['completion_time'] ) )
                 {
                     $notCompletedTasks =  ProjectManager_Tasks::getInstance()->select( null, array( 'completion_time' => '', 'goals_id' => $data['goals_id'] ) );
-                //    var_export( $notCompletedTasks );
                     if( ! $notCompletedTasks  )
                     {
                         ProjectManager_Goals::getInstance()->update( array( 'completion_time' => $values['completion_time'] ), array( 'goals_id' => $data['goals_id'] ) );  
@@ -109,7 +107,6 @@ class ProjectManager_Tasks_Editor extends ProjectManager_Tasks_Abstract
                         $this->setViewContent(  '<div class="goodnews">' . $message . '</div>'  ); 
                     }
                 }
-            //    $this->setViewContent( $mailInfo['body'], true  ); 
             }
             else
             {

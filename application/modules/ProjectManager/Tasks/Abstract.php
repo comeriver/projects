@@ -84,7 +84,7 @@ class ProjectManager_Tasks_Abstract extends PageCarton_Widget
                 $fieldset->addElement( array( 'name' => 'duration', 'label' => 'Duration', 'type' => 'Select', 'value' => @$values['duration'] ), array_combine( range( 1, 30 ), range( 1, 30 ) ) ); 
                 $fieldset->addElement( array( 'name' => 'duration_time', 'label' => '', 'type' => 'Select', 'value' => @$values['duration_time'] ? : 86400 ), array_flip( self::$_timeTable ) ); 
                 $fieldset->addElement( array( 'name' => 'completion_time', 'label' => '', 'type' => 'Hidden', 'value' => null ) ); 
-                $fieldset->addElement( array( 'name' => 'email_address', 'label' => 'Team Members Emails', 'placeholder' => 'example@mail.com', 'type' => 'MultipleInputText', 'value' => @$values['email_address'] ) ); 
+                $fieldset->addElement( array( 'name' => 'email_address', 'label' => 'Team Members Emails', 'placeholder' => 'example@mail.com', 'type' => 'MultipleInputText', 'value' => @$values['email_address'] ? : array( Ayoola_Application::getUserInfo( 'email') ) ) ); 
                 $fieldset->addFilter( 'email_address', array( 'LowerCase' ) );
                 if( empty( $_GET['goals_id'] ) )
                 {

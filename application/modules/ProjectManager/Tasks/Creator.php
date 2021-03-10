@@ -47,12 +47,12 @@ class ProjectManager_Tasks_Creator extends ProjectManager_Tasks_Abstract
             }
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $values['goals_id'] ) ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
+                //$this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
             //    return false;
             }
             if( ! $postData = Application_Article_Abstract::loadPostData( $goalInfo['article_url']  ) )
             {
-                $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
+               // $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
             //    return false;
             }
             if( $taskEmails = trim( implode( ',', $values['email_address'] ), ', ' ) )
@@ -64,9 +64,13 @@ class ProjectManager_Tasks_Creator extends ProjectManager_Tasks_Abstract
                 $this->setViewContent(  '' . self::__( '<div class="badnews">Project data could not be saved</div>' ) . '', true  );
                 return false;
             }
+
+            $goal = $goalInfo['goal'] ? : 'Untitled Goal';
+            $project = $postData['article_title'] ? : 'Untitled Project';
+
 			//	Notify Admin
-            $subject = '' . sprintf( self::__( 'New task "%s" added to "%s"' ), $values['task'], $goalInfo['goal'] ) . '';
-            $body = '' . sprintf( self::__( 'New task "%s" added to "%s" goal on "%s" project' ), $values['task'], $goalInfo['goal'], $postData['article_title'] ) . '';
+            $subject = '' . sprintf( self::__( 'New task "%s" added to "%s"' ), $values['task'], $goal ) . '';
+            $body = '' . sprintf( self::__( 'New task "%s" added to "%s" goal on "%s" project' ), $values['task'], $goal, $project ) . '';
 
             $this->setViewContent(  '<div class="goodnews">' . $subject . '</div>', true  ); 
 
