@@ -54,7 +54,15 @@ class ProjectManager_Tasks_Creator extends ProjectManager_Tasks_Abstract
                 {
                     if( $insert = ProjectManager_Goals::getInstance()->insert( $where ) )
                     {
-                        $goalInfo = $insert + $where;
+                        if( is_array( $insert ) )
+                        {
+                            $goalInfo = $insert + $where;
+                        }
+                        else
+                        {
+                            $this->setViewContent(  '' . self::__( '<div class="badnews">We could not find a goal to put this task in. Please set a goal separately and create a task in the goal.</div>' ) . '', true  );
+                            return false;
+                        }
                     }
                 }    
                 $values['goals_id'] = $goalInfo['goals_id'];
