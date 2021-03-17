@@ -113,7 +113,7 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
             );
         }
 		$list->setKey( $this->getIdColumn() );
-		$list->setNoRecordMessage( 'No pending tasks to show...' );
+		$list->setNoRecordMessage( 'No pending tasks to show.' );
 		
 		$list->createList
 		(

@@ -88,7 +88,7 @@ class ProjectManager_Goals_List extends ProjectManager_Goals_Abstract
             );
         }
 		$list->setKey( $this->getIdColumn() );
-		$list->setNoRecordMessage( 'No goals set yet...' );
+		$list->setNoRecordMessage( 'No goals set yet.' );
 		
 		$list->createList
 		(
