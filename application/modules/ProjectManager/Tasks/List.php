@@ -57,6 +57,16 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
                 //return false;
             }
         }
+        elseif( $this->getParameter( 'project_name' ) )
+        {
+            $project =  $this->getParameter( 'project_name' );
+            $where =  array( 'article_url' => $project );
+            if( ! $goals = ProjectManager_Goals::getInstance()->select( 'goals_id', $where ) )
+            {
+
+            }    
+			$this->_dbWhereClause['goals_id'] = $goals;
+        }
 
         if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) )
         {

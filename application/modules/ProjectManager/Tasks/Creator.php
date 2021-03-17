@@ -45,6 +45,20 @@ class ProjectManager_Tasks_Creator extends ProjectManager_Tasks_Abstract
             {
                 $values['goals_id'] = $_GET['goals_id'];
             }
+            if( empty( $values['goals_id'] ) && ! empty( $_GET['article_url'] ) )
+            {
+                $project = $_GET['article_url'];
+                $goal = 'Untitled Goal';
+                $where =  array( 'goal' => $goal, 'article_url' => $project );
+                if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, $where ) )
+                {
+                    if( $insert = ProjectManager_Goals::getInstance()->insert( $where ) )
+                    {
+                        $where += $insert;
+                    }
+                }    
+                $values['goals_id'] = $_GET['goals_id'];
+            }
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $values['goals_id'] ) ) )
             {
                 //$this->setViewContent(  '' . self::__( '<div class="badnews">Goal for this task cannot be found</div>' ) . '', true  );
