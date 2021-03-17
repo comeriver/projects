@@ -54,10 +54,10 @@ class ProjectManager_Tasks_Creator extends ProjectManager_Tasks_Abstract
                 {
                     if( $insert = ProjectManager_Goals::getInstance()->insert( $where ) )
                     {
-                        $where += $insert;
+                        $goalInfo = $insert + $where;
                     }
                 }    
-                $values['goals_id'] = $_GET['goals_id'];
+                $values['goals_id'] = $goalInfo['goals_id'];
             }
             if( ! $goalInfo = ProjectManager_Goals::getInstance()->selectOne( null, array( 'goals_id' => $values['goals_id'] ) ) )
             {

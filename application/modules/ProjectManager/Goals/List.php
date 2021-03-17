@@ -73,9 +73,9 @@ class ProjectManager_Goals_List extends ProjectManager_Goals_Abstract
         {
             $list->setListOptions( 
                 array( 
-                        'Import' => $project ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Duplicate?article_url=' . $project . '\', \'' . $this->getObjectName() . '\' );" title="">Import Goal to Project</a>' : null,    
-                        'Creator' => $project ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Creator?article_url=' . $project . '\', \'' . $this->getObjectName() . '\' );" title="">Create a New Goal</a>' : null,    
-                        'Timeline' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Timeline?article_url=' . $project . '\', \'' . $this->getObjectName() . '\' );" title="">Goal Timeline</a>' : null,    
+                        'Import' => $project ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Duplicate?article_url=' . $project . '\', \'page_refresh\' );" title="">Import Goal to Project</a>' : null,    
+                        'Creator' => $project ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Creator?article_url=' . $project . '\', \'page_refresh\' );" title="">Create a New Goal</a>' : null,    
+                        'Timeline' => $_GET['article_url'] ? '<a onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Timeline?article_url=' . $project . '\', \'page_refresh\' );" title="">Goal Timeline</a>' : null,    
                     ) 
             );
         }
@@ -96,9 +96,9 @@ class ProjectManager_Goals_List extends ProjectManager_Goals_Abstract
                     'goal' => array( 'field' => 'goal', 'value' =>  '%FIELD%', 'filter' =>  '' ), 
                 //    'deadline' => array( 'field' => 'time', 'value' =>  '%FIELD%', 'filter' =>  '' ), 
                     array( 'field' => 'completion_time', 'value' =>  '%FIELD%', 'value_representation' => array( '' => '', 'pc_paginator_default' => '<i class="fa fa-check"></i>' ) ), 
-                    array( 'field' => 'goals_id', 'value' =>  '<a href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_List?goals_id=%FIELD%\', \'' . $this->getObjectName() . '\' );" title="">tasks</a>', 'filter' =>  '' ), 
-                    '%FIELD% <a style="font-size:smaller;" href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Editor/?' . $this->getIdColumn() . '=%KEY%&article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>', 
-                    '%FIELD% <a style="font-size:smaller;" href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Delete/?' . $this->getIdColumn() . '=%KEY%&article_url=' . @$_GET['article_url'] . '\', \'' . $this->getObjectName() . '\' );"><i class="fa fa-trash" aria-hidden="true"></i></a>', 
+                    array( 'field' => 'goals_id', 'value' =>  '<a href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Tasks_List?goals_id=%FIELD%\', \'page_refresh\' );" title="">tasks</a>', 'filter' =>  '' ), 
+                    '%FIELD% <a style="font-size:smaller;" href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Editor/?' . $this->getIdColumn() . '=%KEY%&article_url=' . @$_GET['article_url'] . '\', \'page_refresh\' );"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>', 
+                    '%FIELD% <a style="font-size:smaller;" href="javascript:" onClick="ayoola.spotLight.showLinkInIFrame( \'' . Ayoola_Application::getUrlPrefix() . '/tools/classplayer/get/object_name/ProjectManager_Goals_Delete/?' . $this->getIdColumn() . '=%KEY%&article_url=' . @$_GET['article_url'] . '\', \'page_refresh\' );"><i class="fa fa-trash" aria-hidden="true"></i></a>', 
 				)
 		);
 		return $list;
