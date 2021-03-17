@@ -54,12 +54,12 @@ class ProjectManager extends PageCarton_Widget
 	public static function getEmailFooter()
     {
         $html = null;
-        $html .= '<h2>My Projects</h2>';
+       // $html .= '<h2>My Projects</h2>';
     //    $html .= '<h2>All My Projects</h2>';
-        $html .= ProjectManager::viewInLine();
+        //$html .= ProjectManager::viewInLine();
     //    $html .= '<h2>All My Tasks</h2>';
-        $html .= ProjectManager_Tasks_List::viewInLine();
-        $html .= '<h2><a href="' . Ayoola_Application::getUrlPrefix() . '/widgets/ProjectManager_Timeline">View My Timeline</a></h2>';
+        //$html .= ProjectManager_Tasks_List::viewInLine();
+        //$html .= '<h2><a href="' . Ayoola_Application::getUrlPrefix() . '/widgets/ProjectManager_Timeline">View My Timeline</a></h2>';
         return $html;
     }
 
