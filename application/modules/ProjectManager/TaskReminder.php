@@ -42,9 +42,7 @@ class ProjectManager_TaskReminder extends PageCarton_Widget
 		try
 		{ 
             //  Code that runs the widget goes here...
-
             //  Output demo content to screen
-			
             $where = array();
             $this->setViewContent( '<h2>Project Task Reminder</h2><br>' ); 
             if( $projectID = $this->getParameter( 'article_url' ) ? : $_GET['article_url'] )
@@ -59,10 +57,9 @@ class ProjectManager_TaskReminder extends PageCarton_Widget
            }
 
             $goals = ProjectManager_Goals::getInstance()->select( array( 'goals_id', 'goal' ), $where, array( 'xxx' ) );
-        //    var_export( $where );
-        //    var_export( $goals );
             $data = array();
             $groups = array();
+            $sent = array();
             foreach( $goals as $goal )
             {
                 $tasks = ProjectManager_Tasks::getInstance()->select( null, array( 'goals_id' => $goal['goals_id'], 'completion_time' => '' ) );
@@ -79,21 +76,27 @@ class ProjectManager_TaskReminder extends PageCarton_Widget
                         <br>
                         What Can I do?
                         <br>
-                        <a href="#">Manage my tasks now...</a>
+                        <a href="' . Ayoola_Application::getUrlPrefix() . '/widgets/ProjectManager_Tasks_List">Manage my tasks now...</a>
                         <br>
                         
                         ' ), $task['task'], $goal['goal'] ) . '';
                         $this->setViewContent(  '<div class="badnews">' . $subject . '</div>'  ); 
                         $mailInfo = array();
-                        if( $task['email_address'] AND $taskEmails = trim( implode( ',', $task['email_address'] ), ', ' ) )
+                        if( is_array( $task['email_address'] ) )
                         {
-                            $taskEmails .= ',' . $postData['customer_email'];
+                            $notSent = array_diff( $task['email_address'], $sent );
+                            if( $taskEmails = trim( implode( ',', $notSent ), ', ' ) )
+                            {
+                                //$taskEmails .= ',' . $postData['customer_email'];
+                            }
+                            //$taskEmails .= ',' . $postData['customer_email'];
+                            $sent += $task['email_address'];
+                            $sent = array_unique( $sent );
                         }
                         $mailInfo['to'] = $taskEmails;
                         $mailInfo['body'] = $message;
                         $mailInfo['subject'] = $subject;
                         self::sendMail( $mailInfo );
-                    //    var_export( $mailInfo );
                         @Ayoola_Application_Notification::mail( $mailInfo );
                     }
                     elseif( empty( $lowestTime ) || $task['time'] < $lowestTime )
@@ -105,27 +108,31 @@ class ProjectManager_TaskReminder extends PageCarton_Widget
                 if( $nextTask )
                 {
                     $subject = '' . sprintf( self::__( 'What is the update on "%s" task?' ), $task['task'] ) . '';
-                    $message = '' . sprintf( self::__( 'Do you have an update on "%s"? Do not forget to mark the task as completed when it has been done. 
-
+                    $message = '' . sprintf( self::__( 'Do you have an update on "%s"? Do not forget to mark the task as completed when it has been done.
                     <br>
                     What Can I do?
                     <br>
-                    <a href="#">Manage my tasks now...</a>
+                    <a href="' . Ayoola_Application::getUrlPrefix() . '/widgets/ProjectManager_Tasks_List">Manage my tasks now...</a>
                     <br>
-                    
                     ' ), $task['task'], $goal['goal'] ) . '';
-                    $this->setViewContent(  '<div class="pc-notify-info">' . $subject . '</div>'  ); 
+                    $this->setViewContent( '<div class="pc-notify-info">' . $subject . '</div>' );
+                    
                     $mailInfo = array();
-                //    var_export( $task );
-                    if( $task['email_address'] AND $taskEmails = trim( implode( ',', $task['email_address'] ), ', ' ) )
+                    if( is_array( $task['email_address'] ) )
                     {
-                        $taskEmails .= ',' . $postData['customer_email'];
+                        $notSent = array_diff( $task['email_address'], $sent );
+                        if( $taskEmails = trim( implode( ',', $notSent ), ', ' ) )
+                        {
+                            //$taskEmails .= ',' . $postData['customer_email'];
+                        }
+                        //$taskEmails .= ',' . $postData['customer_email'];
+                        $sent += $task['email_address'];
+                        $sent = array_unique( $sent );
                     }
                     $mailInfo['to'] = $taskEmails;
                     $mailInfo['body'] = $message;
                     $mailInfo['subject'] = $subject;
                     self::sendMail( $mailInfo );
-                //    var_export( $mailInfo );
                     @Ayoola_Application_Notification::mail( $mailInfo );
             }
             }
