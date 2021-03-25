@@ -25,7 +25,7 @@ class ProjectManager_Tasks extends PageCarton_Table
      *
      * @param string
      */
-    protected $_tableVersion = '0.4';  
+    protected $_tableVersion = '0.5';  
 
 
     /**
@@ -42,6 +42,7 @@ class ProjectManager_Tasks extends PageCarton_Table
         'duration_time' => 'INPUTTEXT',
         'goals_id' => 'INPUTTEXT',
         'email_address' => 'JSON',
+        'work_link' => 'INPUTTEXT',
       );
       
 

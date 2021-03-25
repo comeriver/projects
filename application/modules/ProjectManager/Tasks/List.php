@@ -68,7 +68,11 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
 			$this->_dbWhereClause['goals_id'] = $goals;
         }
 
-        if( ! self::hasPriviledge( 98 ) && ! ProjectManager::isCustomer( $postData['customer_email'] ) )
+        if( $this->getParameter( 'my_tasks' ) || ! empty( $_GET['my_tasks'] ) )
+        {
+            $this->_dbWhereClause['__user_id'] = Ayoola_Application::getUserInfo( 'user_id' );
+        }
+        elseif( ! ProjectManager::isCustomer( $postData['customer_email'] ) )
         {
             $this->_dbWhereClause['email_address'] = strtolower( Ayoola_Application::getUserInfo( 'email' ) );
         }
@@ -77,7 +81,12 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
         {
             $this->_dbWhereClause['completion_time'] = '';
         }
-		require_once 'Ayoola/Paginator.php';
+        elseif( self::hasPriviledge( 98 ) )
+        {
+            $this->_dbWhereClause['email_address'] = array();
+            $this->_dbWhereClause['__user_id'] = array();
+        }
+
         $list = new Ayoola_Paginator();
         $this->_sortColumn = 'time';
 		$list->pageName = $this->getObjectName();
@@ -113,7 +122,7 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
             );
         }
 		$list->setKey( $this->getIdColumn() );
-		$list->setNoRecordMessage( 'No pending tasks to show.' );
+		$list->setNoRecordMessage( 'No pending tasks' );
 		
 		$list->createList
 		(

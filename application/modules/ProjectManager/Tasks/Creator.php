@@ -77,6 +77,13 @@ class ProjectManager_Tasks_Creator extends ProjectManager_Tasks_Abstract
                // $this->setViewContent(  '' . self::__( '<div class="badnews">Project not found</div>' ) . '', true  );
             //    return false;
             }
+            $emails = array();
+            foreach( $values['email_address'] as $each )
+            {
+                $emailList = array_map( 'trim', explode( ',', $each ) );
+                $emails = array_merge( $emailList, $emails );
+            }
+            $values['email_address'] = array_unique( $emails );
             if( $taskEmails = trim( implode( ',', $values['email_address'] ), ', ' ) )
             {
                 $postData['customer_email'] .= ',' . $taskEmails;
@@ -91,7 +98,7 @@ class ProjectManager_Tasks_Creator extends ProjectManager_Tasks_Abstract
             $project = $postData['article_title'] ? : 'Untitled Project';
 
 			//	Notify Admin
-            $subject = '' . sprintf( self::__( 'New task "%s" added to "%s"' ), $values['task'], $goal ) . '';
+            $subject = '' . sprintf( self::__( 'New task created' ), $values['task'], $goal ) . '';
             $body = '' . sprintf( self::__( 'New task "%s" added to "%s" goal on "%s" project' ), $values['task'], $goal, $project ) . '';
 
             $this->setViewContent(  '<div class="goodnews">' . $subject . '</div>', true  ); 
