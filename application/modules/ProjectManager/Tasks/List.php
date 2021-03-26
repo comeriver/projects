@@ -83,8 +83,8 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
         }
         elseif( self::hasPriviledge( 98 ) )
         {
-            $this->_dbWhereClause['email_address'] = array();
-            $this->_dbWhereClause['__user_id'] = array();
+            unset( $this->_dbWhereClause['email_address'] );
+            unset( $this->_dbWhereClause['__user_id'] );
         }
 
         $list = new Ayoola_Paginator();
