@@ -75,6 +75,8 @@ class ProjectManager_Tasks_List extends ProjectManager_Tasks_Abstract
         elseif( ! ProjectManager::isCustomer( $postData['customer_email'] ) )
         {
             $this->_dbWhereClause['email_address'] = strtolower( Ayoola_Application::getUserInfo( 'email' ) );
+            $this->_dbSelectOptions['where_alternative']['email_address']['__user_id'] = strval( Ayoola_Application::getUserInfo( 'user_id' ) );
+            //$this->_dbSelectOptions['xxx'] = time();
         }
 
         if( empty( $_GET['all_tasks'] ) )

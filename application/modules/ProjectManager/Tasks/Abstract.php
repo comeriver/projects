@@ -80,19 +80,19 @@ class ProjectManager_Tasks_Abstract extends PageCarton_Widget
             break;
             default:
                 $fieldset->addElement( array( 'name' => 'task', 'label' => 'Task', 'type' => 'InputText', 'value' => @$values['task'] ) ); 
+                $fieldset->addElement( array( 'name' => 'duration', 'label' => 'Duration', 'type' => 'Select', 'value' => @$values['duration'], 'style' => 'width:100px;' ), array_combine( range( 1, 30 ), range( 1, 30 ) ) ); 
+                $fieldset->addElement( array( 'name' => 'duration_time', 'label' => '', 'type' => 'Select', 'value' => @$values['duration_time'] ? : 86400, 'style' => 'width:100px;' ), array_flip( self::$_timeTable ) ); 
                 $fieldset->addElement( array( 'name' => 'time', 'label' => 'Start Time', 'type' => 'DateTime', 'value' => @$values['time'] ) ); 
-                $fieldset->addElement( array( 'name' => 'duration', 'label' => 'Duration', 'type' => 'Select', 'value' => @$values['duration'] ), array_combine( range( 1, 30 ), range( 1, 30 ) ) ); 
-                $fieldset->addElement( array( 'name' => 'duration_time', 'label' => '', 'type' => 'Select', 'value' => @$values['duration_time'] ? : 86400 ), array_flip( self::$_timeTable ) ); 
                 $fieldset->addElement( array( 'name' => 'completion_time', 'label' => '', 'type' => 'Hidden', 'value' => null ) );
 
                 $emailType = 'MultipleInputText';
                 $emailOptions = array();
                 if( $this->getParameter( 'email_address' ) && is_array( $this->getParameter( 'email_address' ) ) ) 
                 {
-                    $emailType = 'Select';
-                    $emailOptions = $this->getParameter( 'email_address' );
+                    $emailType = 'SelectMultiple';
+                    $emailOptions = array_combine( $this->getParameter( 'email_address' ), $this->getParameter( 'email_address' ) );
                 }
-                $fieldset->addElement( array( 'name' => 'email_address', 'label' => 'Team Members Emails', 'placeholder' => 'example@mail.com', 'type' => $emailType, 'value' => @$values['email_address'] ? : array( Ayoola_Application::getUserInfo( 'email') ) ), $emailOptions ); 
+                $fieldset->addElement( array( 'name' => 'email_address', 'label' => 'Assign to:', 'multiple' => 'multiple', 'placeholder' => 'example@mail.com', 'type' => $emailType, 'value' => @$values['email_address'] ? : array( Ayoola_Application::getUserInfo( 'email') ) ), $emailOptions ); 
                 $fieldset->addFilter( 'email_address', array( 'LowerCase' ) );
                 if( empty( $_GET['goals_id'] ) )
                 {
@@ -107,9 +107,11 @@ class ProjectManager_Tasks_Abstract extends PageCarton_Widget
                         {
                             $where['article_url'] = $_GET['article_url'];
                         }
-                        $options = ProjectManager_Goals_Abstract::getGoals( $where );
+                        if( $options = ProjectManager_Goals_Abstract::getGoals( $where ) )
+                        {
+                            $fieldset->addElement( array( 'name' => 'goals_id', 'label' => 'Task Goal', 'type' => 'Select', 'value' => @$values['goals_id'] ), $options );
+                        }
                         
-                        $fieldset->addElement( array( 'name' => 'goals_id', 'label' => 'Task Goal', 'type' => 'Select', 'value' => @$values['goals_id'] ), $options );
                     }
                 }
             break;
