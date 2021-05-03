@@ -12,7 +12,7 @@
     <TABLE_ROW ROW_ID="2">
       <TABLE_FIELD FIELD_KEY="class_name"><![CDATA[ProjectManager_TaskReminder]]></TABLE_FIELD>
       <TABLE_FIELD FIELD_KEY="cron_parameters"><![CDATA[null]]></TABLE_FIELD>
-      <TABLE_FIELD FIELD_KEY="cron_interval"><![CDATA[86400]]></TABLE_FIELD>
+      <TABLE_FIELD FIELD_KEY="cron_interval"><![CDATA[604800]]></TABLE_FIELD>
       <TABLE_FIELD FIELD_KEY="table_id"><![CDATA[1577155201-0-2]]></TABLE_FIELD>
       <TABLE_FIELD FIELD_KEY="creation_time"><![CDATA[1577155201]]></TABLE_FIELD>
       <TABLE_FIELD FIELD_KEY="modified_time"><![CDATA[]]></TABLE_FIELD>

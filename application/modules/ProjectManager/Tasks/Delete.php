@@ -67,7 +67,7 @@ class ProjectManager_Tasks_Delete extends ProjectManager_Tasks_Abstract
             $mailInfo['body'] = $body . ProjectManager::getEmailFooter();
             $mailInfo['subject'] = $subject;
             self::sendMail( $mailInfo );
-            @Ayoola_Application_Notification::mail( $mailInfo );
+            //@Ayoola_Application_Notification::mail( $mailInfo );
         
 
              // end of widget process

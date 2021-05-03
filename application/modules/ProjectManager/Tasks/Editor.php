@@ -73,7 +73,7 @@ class ProjectManager_Tasks_Editor extends ProjectManager_Tasks_Abstract
                 $mailInfo['body'] = $message . ProjectManager::getEmailFooter();
                 $mailInfo['subject'] = '' . sprintf( self::__( 'Task information for "%s" has been updated' ), $data['task'] ) . '';
                 self::sendMail( $mailInfo );
-                @Ayoola_Application_Notification::mail( $mailInfo );
+                //@Ayoola_Application_Notification::mail( $mailInfo );
             }
             elseif( ! empty( $values['completion_time'] ) )
             {
@@ -84,7 +84,7 @@ class ProjectManager_Tasks_Editor extends ProjectManager_Tasks_Abstract
                 $mailInfo['body'] = $message . ProjectManager::getEmailFooter();
                 $mailInfo['subject'] = $message;
                 self::sendMail( $mailInfo );
-                @Ayoola_Application_Notification::mail( $mailInfo );
+                //@Ayoola_Application_Notification::mail( $mailInfo );
 
                 $this->setViewContent(  '<div class="goodnews">' . $message . '</div>', true  ); 
                 
@@ -102,7 +102,7 @@ class ProjectManager_Tasks_Editor extends ProjectManager_Tasks_Abstract
                         $mailInfo['body'] = $message . ProjectManager::getEmailFooter();
                         $mailInfo['subject'] = $message;
                         self::sendMail( $mailInfo );
-                        @Ayoola_Application_Notification::mail( $mailInfo );
+                        //@Ayoola_Application_Notification::mail( $mailInfo );
                         
                         $this->setViewContent(  '<div class="goodnews">' . $message . '</div>'  ); 
                     }

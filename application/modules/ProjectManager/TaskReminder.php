@@ -84,20 +84,32 @@ class ProjectManager_TaskReminder extends PageCarton_Widget
                         $mailInfo = array();
                         if( is_array( $task['email_address'] ) )
                         {
-                            $notSent = array_diff( $task['email_address'], $sent );
-                            if( $taskEmails = trim( implode( ',', $notSent ), ', ' ) )
+                            if( strpos( $task['email_address'][0], ',' ) && count( $task['email_address'] ) === 1 )
+                            {
+                                $task['email_address'] = array_map( 'trim', explode( ',', $task['email_address'][0] ) );
+                                //var_export( $task['email_address'] );
+                            }
+                            $task['email_address'] = array_map( 'strtolower', $task['email_address'] );
+
+                           $notSent = array_diff( $task['email_address'], $sent );
+
+                            if( empty( $notSent ) )
+                            {
+
+                            }
+                            elseif( $taskEmails = trim( implode( ',', $notSent ), ', ' ) )
                             {
                                 //$taskEmails .= ',' . $postData['customer_email'];
                             }
                             //$taskEmails .= ',' . $postData['customer_email'];
-                            $sent += $task['email_address'];
+                            $sent = array_merge( $task['email_address'], $sent );
                             $sent = array_unique( $sent );
                         }
                         $mailInfo['to'] = $taskEmails;
                         $mailInfo['body'] = $message;
                         $mailInfo['subject'] = $subject;
                         self::sendMail( $mailInfo );
-                        @Ayoola_Application_Notification::mail( $mailInfo );
+                        //@Ayoola_Application_Notification::mail( $mailInfo );
                     }
                     elseif( empty( $lowestTime ) || $task['time'] < $lowestTime )
                     {
@@ -133,8 +145,9 @@ class ProjectManager_TaskReminder extends PageCarton_Widget
                     $mailInfo['body'] = $message;
                     $mailInfo['subject'] = $subject;
                     self::sendMail( $mailInfo );
-                    @Ayoola_Application_Notification::mail( $mailInfo );
+                    //@Ayoola_Application_Notification::mail( $mailInfo );
             }
+                //var_export( $sent );
             }
              // end of widget process
           
